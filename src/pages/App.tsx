@@ -9,6 +9,9 @@ import '../styles/_app.scss';
 
 
 export const App: React.FC = () => {
+
+
+
     return (
         <div className="app_container">
             <BrowserRouter>

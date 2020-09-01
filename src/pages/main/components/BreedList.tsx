@@ -1,5 +1,6 @@
 import React from 'react'
 import {BreedPreview} from "../../../hooks/useCats";
+import {useHistory} from "react-router-dom";
 
 
 
@@ -26,8 +27,17 @@ export const BreedList: React.FC<BreedListProps> = ({breeds}) => {
 
 export const BreedItem: React.FC<BreedItemProps> = ({breed}) => {
 
+    const history = useHistory();
+
+    const onItemClick = () => {
+        history.push({
+            pathname: `/breeds/${breed.id}/info`,
+        })
+    };
+
+
     return (
-        <div className="list-item">
+        <div className="list-item" onClick={onItemClick}>
             <img src={breed.image.url} className="item-image" alt={breed.name}/>
             <div className="item-title">{breed.name}</div>
         </div>

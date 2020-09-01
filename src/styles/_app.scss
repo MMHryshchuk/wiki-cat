@@ -1,6 +1,5 @@
 @import "mixins";
 @import "variables";
-@import "variables";
 
 .app_container {
   height: 100vh;
@@ -85,69 +84,6 @@
       }
     }
   }
-
-}
-
-.top-search__container {
-  margin-bottom: 100px;
-}
-
-.top-search__title {
-  font-style: normal;
-  font-weight: bold;
-  font-size: 36px;
-  line-height: 44px;
-  color: #291507;
-}
-
-.top-search__wrapper {
-
-}
-
-.top-search__item {
-  margin-top: 55px;
-  display: flex;
-  flex-direction: row;
-}
-
-.top-search__item-img {
-  width: 170px;
-  height: 170px;
-  border-radius: 24px;
-  object-fit: cover;
-}
-
-.top-search__item-content {
-  margin-left: 50px;
-  display: flex;
-  flex-direction: column;
-}
-
-.top-search__item-title {
-  font-style: normal;
-  font-weight: 600;
-  font-size: 36px;
-  line-height: 44px;
-  color: #291507;
-  cursor: pointer;
-
-  &:hover {
-    color: #70360d;
-
-  }
-}
-
-.top-search__item-text {
-  margin-top: 24px;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 22px;
-  color: #291507;
-
-}
-
-.divider {
 
 }
 

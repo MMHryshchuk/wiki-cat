@@ -1,9 +1,11 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import {useParams} from "react-router-dom";
 import Api from '../../api'
-import {useCancellationToken, useCancellableEffect} from '../../hooks'
+import {useCancellableEffect, useCancellationToken} from '../../hooks'
 import {BreedInformation, IBreed} from "./components/BreedInformation";
 import {BreedPhotos, IPhotos} from "./components/BreedPhotos";
+import {WikiLoader} from "../../components/ui/WikiLoader";
+import {NotFound} from "../../components/NotFound";
 
 
 export interface DetailPageParams {
@@ -15,6 +17,8 @@ export const DetailPage: React.FC = () => {
     const params = useParams<DetailPageParams>();
 
     const [breed, setBreed] = useState<IBreed>();
+    const [isExist, setIsExist] = useState<boolean>(true);
+    const [isSearching, setIsSearching] = useState<boolean>(true);
     const [photos, setPhotos] = useState<IPhotos[]>([]);
     const cancellationToken = useCancellationToken();
 
@@ -34,7 +38,10 @@ export const DetailPage: React.FC = () => {
                 setBreed(breed);
                 setPhotos(photos)
             } catch (e) {
+                setIsExist(false);
                 console.log(e);
+            } finally {
+                setIsSearching(false)
             }
         };
         loadBreed()
@@ -42,9 +49,20 @@ export const DetailPage: React.FC = () => {
 
 
     return (
-        <>
-            <BreedInformation breed={breed}/>
-            <BreedPhotos photos={photos}/>
-        </>
+        <div className="container">
+
+            {isSearching && <WikiLoader className={'fixed-loader'}/>}
+
+            {isExist ?
+                <>
+                    <BreedInformation breed={breed}/>
+                    <BreedPhotos photos={photos}/>
+                </>
+                :
+                <NotFound/>
+            }
+
+
+        </div>
     )
 };

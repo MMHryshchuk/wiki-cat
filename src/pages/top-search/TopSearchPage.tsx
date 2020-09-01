@@ -1,34 +1,22 @@
 import React from 'react';
-import ReIm from '../../assets/images/cat_item.png'
+import {TopList} from "./components/TopList";
+import {useCats} from "../../hooks";
+import {WikiLoader} from "../../components/ui/WikiLoader";
+
 
 export const TopSearchPage: React.FC = () => {
 
+    const {isLoading, breeds} = useCats({limit:10});
+
+
+
     return (
-        <div className="top-search__container">
-            <div className="top-search__title">Top 10 most searched breeds</div>
-            <div className="top-search__wrapper">
-                <div className="top-search__item">
-                    <img className="top-search__item-img" src={ReIm} alt=""/>
-                    <div className="top-search__item-content">
-                        <div className="top-search__item-title">1. Bengal</div>
-                        <div className="top-search__item-text">Bengals are a lot of fun to live with, but they're definitely not the cat for everyone, or for first-time cat owners. Extremely intelligent, curious and active, they demand a lot of interaction and woe betide the owner who doesn't provide it.</div>
-                    </div>
-                </div>
-                <div className="top-search__item">
-                    <img className="top-search__item-img" src={ReIm} alt=""/>
-                    <div className="top-search__item-content">
-                        <div className="top-search__item-title">1. Bengal</div>
-                        <div className="top-search__item-text">Bengals are a lot of fun to live with, but they're definitely not the cat for everyone, or for first-time cat owners. Extremely intelligent, curious and active, they demand a lot of interaction and woe betide the owner who doesn't provide it.</div>
-                    </div>
-                </div>
-                <div className="top-search__item">
-                    <img className="top-search__item-img" src={ReIm} alt=""/>
-                    <div className="top-search__item-content">
-                        <div className="top-search__item-title">1. Bengal</div>
-                        <div className="top-search__item-text">Bengals are a lot of fun to live with, but they're definitely not the cat for everyone, or for first-time cat owners. Extremely intelligent, curious and active, they demand a lot of interaction and woe betide the owner who doesn't provide it.</div>
-                    </div>
-                </div>
+        <>
+            {isLoading && <WikiLoader className="fixed-loader"/>}
+            <div className="top-search__container container">
+                <div className="top-search__title">Top 10 most searched breeds</div>
+                <TopList breeds={breeds}/>
             </div>
-        </div>
+        </>
     )
 }

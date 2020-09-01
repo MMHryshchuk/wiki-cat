@@ -1,42 +1,18 @@
-import React, {useState} from 'react'
-import Api from "../../api";
-import {useCancellableEffect, useCancellationToken} from '../../hooks'
-import CatWhiteIcon from '../../assets/images/cat_white.svg'
-import Arrow from '../../assets/images/arrow.svg'
+import React from 'react'
+import {useCats} from '../../hooks'
+import {Arrow, CatWhite} from '../../images'
 import {Search} from "./components/Search";
-import {BreedList, BreedPreview} from "./components/BreedList";
+import {BreedList} from "./components/BreedList";
 import {AboutArticle} from "./components/AboutArticle";
 import {useHistory} from "react-router-dom";
+import {WikiLoader} from "../../components/ui/WikiLoader";
 
 
 export const MainPage: React.FC = () => {
 
-    const [breeds, setBreeds] = useState<BreedPreview[]>([]);
-    const cancellationToken = useCancellationToken();
 
     const history = useHistory();
-
-    useCancellableEffect(async () => {
-
-        const getBreedList = async () => {
-            try {
-                const breedsResponse = await Api.breeds.getBreeds();
-                const getBreads = () => Promise.all(breedsResponse.data.map(async (item: BreedPreview) => {
-                    const imageResponse = await Api.breeds.getBreedById(item.id);
-                    let {id, url} = imageResponse.data[0];
-                    item.image = {id, url};
-                    return item
-                }));
-                const data: any = await getBreads();
-                if (cancellationToken.isCancelled) return;
-                setBreeds(data);
-            } catch (e) {
-                console.log(e);
-            }
-        };
-        getBreedList();
-    }, [setBreeds], cancellationToken);
-
+    const {isLoading, breeds} = useCats({limit:4});
 
     const openMore = () => {
         history.push('/breeds/top')
@@ -44,34 +20,40 @@ export const MainPage: React.FC = () => {
 
     return (
         <>
-            <div className="main-search__container">
-                <div className="main-search__wrapper">
-                    <div className="main-search__content">
-                        <div className="main-search__logo">
-                            <div className="main-search__title">CatWiki</div>
-                            <img className="main-search__icon" src={CatWhiteIcon} alt="SomeImage"/>
+            {isLoading && <WikiLoader className={'fixed-loader'}/>}
+            <div className="container">
+                <div className="main__container">
+                    <div className="main__block">
+                        <div className="search-content">
+                            <div className="content-logo">
+                                <div className="logo__title">CatWiki</div>
+                                <img className="logo__icon" src={CatWhite} alt="SomeImage"/>
+                            </div>
+                            <div className="content-text">Get to know more about your &#13;&#10; cat breed</div>
+                            <Search/>
                         </div>
-                        <div className="main-search_text">Get to know more about your &#13;&#10; cat breed</div>
-                        <Search/>
+
+                    </div>
+                    <div className="main__bg"/>
+                    <img src="" alt=""/>
+                </div>
+                <div className="most__container">
+                    <div className="most__content">
+                        <div className="most__text">Most Searched Breeds</div>
+                        <div className="divider"/>
+                        <div className="most__block">
+                            <div className="block-text">66+ Breeds for you to discover</div>
+                            <div onClick={openMore} className="block-more">see more
+                                <img src={Arrow} alt="arrow"/>
+                            </div>
+                        </div>
                     </div>
 
-                </div>
-                <div className="main-search__bg"/>
-            </div>
-            <div className="most__container">
-                <div className="most__header">Most Searched Breeds</div>
-                <div className="divider"/>
-                <div className="most__wrapper">
-                    <div className="most__wrapper-text">66+ Breeds for you to discover</div>
-                    <div onClick={openMore} className="most__wrapper-more">see more
-                        <img src={Arrow} alt="arrow"/>
-                    </div>
-                </div>
+                    <BreedList breeds={breeds}/>
 
-                <BreedList breeds={breeds}/>
-
+                </div>
+                <AboutArticle/>
             </div>
-            <AboutArticle/>
         </>
     )
 };

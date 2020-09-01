@@ -1,11 +1,11 @@
 import makeRequest from "../makeRequest";
 
 
-export const getBreeds =  () => {
+export const getBreeds =  (limit: number) => {
     return  makeRequest({
         url: 'breeds',
         params: {
-            limit: 4
+            limit: limit
         }
     })
 };

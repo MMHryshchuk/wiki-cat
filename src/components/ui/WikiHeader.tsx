@@ -1,5 +1,5 @@
 import React from 'react';
-import CatIcon from "../../assets/images/cat.svg"
+import CatIcon from "../../images/cat.svg"
 import {useHistory} from "react-router-dom";
 
 export const WikiHeader: React.FC = () => {
@@ -11,7 +11,7 @@ export const WikiHeader: React.FC = () => {
     };
 
     return (
-        <header className="header__container">
+        <header className="header__container container">
             <div className="header__wrapper" onClick={openMainPage}>
                 <div className="logo-text">CatWiki</div>
                 <img className="logo-icon" src={CatIcon} alt="React Logo"/>

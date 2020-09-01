@@ -2,9 +2,9 @@ import React, {useCallback, useState} from 'react';
 import {useHistory} from "react-router-dom";
 import _ from "lodash";
 import Api from "../../../api";
-import {useCancellationToken, useDebounce, useCancellableEffect} from '../../../hooks'
+import {useCancellationToken, useDebounce, useCancellableEffect, useDeviceDetect} from '../../../hooks'
 import {WikiLoader} from "../../../components/ui/WikiLoader";
-import SearchIcon from "../../../assets/images/search.svg";
+import {SearchIcon, Close} from "../../../images";
 
 export interface SearchBreed {
     id: string,
@@ -13,10 +13,11 @@ export interface SearchBreed {
 
 export const Search: React.FC = () => {
     const history = useHistory();
-
+    const {isMobile} = useDeviceDetect();
 
     const [focus, setFocus] = useState<boolean>(false);
     const [query, setQuery] = useState<string>('');
+    const [showModal, setShowModal] = useState<boolean>(false);
     const [isSearching, setIsSearching] = useState<boolean>(false);
     const [searchBreeds, setSearchBreeds] = useState<SearchBreed[]>([]);
 
@@ -24,7 +25,7 @@ export const Search: React.FC = () => {
     const debouncedSearchQuery = useDebounce(query, 500);
     const debouncedBlur = useCallback(_.debounce(() => {
         if (cancellationToken.isCancelled) return;
-        setFocus(false)
+        setFocus(false);
     }, 100), []);
 
 
@@ -52,39 +53,60 @@ export const Search: React.FC = () => {
     };
 
     const onItemClick = (breed: SearchBreed) => {
-        console.log(breed);
         history.push({
             pathname: `/breeds/${breed.id}/info`,
         })
     };
 
+    const renderSearchResult = () => {
+        return (
+            searchBreeds.map((item: SearchBreed) => (
+                <div key={item.id} onClick={() => onItemClick(item)} className="form-item">
+                    <div className="item-text">{item.name}</div>
+                </div>
+            ))
+        )
+    };
+
     return (
         <>
-            <div>
+            <div className="search-bar__block">
                 <input
                     value={query}
                     onChange={event => setQuery(event.target.value)}
                     onBlur={debouncedBlur}
-                    onFocus={() => setFocus(true)}
-                    className="main-search-input"
+                    onFocus={() => {
+                        setFocus(true);
+                        setShowModal(true)
+                    }}
+                    className="search-input"
                     type="text"/>
-                <img className="main-search-input-icon" src={SearchIcon} alt="search"/>
+                <img className="search-icon" src={SearchIcon} alt="search"/>
             </div>
             {
-                focus &&
-                <div className="main-search-result-form">
-                    {
-                        isSearching &&
-                        <WikiLoader/>
-                    }
-                    {
-                        searchBreeds.map((item: SearchBreed) => (
-                            <div key={item.id} onClick={() => onItemClick(item)} className="result-form__item">
-                                <div className="result-form__item-text">{item.name}</div>
-                            </div>
-                        ))
-                    }
-                </div>
+                isMobile ?
+                    showModal &&
+                    <div className="search-modal__wrapper">
+                        <div onClick={() => setShowModal(false)} className="modal-btn">
+                            <img src={Close} alt="close-ic"/>
+                        </div>
+                        <div className="modal-input">
+                            <input
+                                value={query}
+                                onChange={event => setQuery(event.target.value)}
+                                type="text"/>
+                            <img src={SearchIcon} alt="search"/>
+                        </div>
+                        <div className="modal-list">
+                            {renderSearchResult()}
+                        </div>
+                    </div>
+                    :
+                    focus &&
+                    <div className="search-result__form">
+                        {isSearching && <WikiLoader className={'relative-loader'}/>}
+                        {renderSearchResult()}
+                    </div>
             }
         </>
     )

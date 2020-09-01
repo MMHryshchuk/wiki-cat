@@ -1,9 +1,13 @@
 import React from 'react';
-import logo from '../../assets/images/cat.svg'
+import logo from '../../images/cat.svg'
 
-export const WikiLoader: React.FC = () => {
+type WikiLoaderProps = {
+    className: string
+}
+
+export const WikiLoader: React.FC<WikiLoaderProps> = ({className}) => {
     return (
-        <div className="wiki-loader">
+        <div className={className}>
             <img src={logo} className="wiki-logo" alt="logo" />
         </div>
     )

@@ -1,11 +1,11 @@
 import React from 'react';
-import './App.css';
+import styles from './App.scss';
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
-import {WikiHeader} from './components/ui/WikiHeader'
-import {WikiFooter} from './components/ui/WikiFooter'
-import {MainPage} from './pages/main/MainPage'
-import {DetailPage} from './pages/detail/DetailPage'
-import {TopSearchPage} from './pages/top-search/TopSearchPage';
+import {WikiHeader} from '../components/ui/WikiHeader'
+import {WikiFooter} from '../components/ui/WikiFooter'
+import {MainPage} from './main/MainPage'
+import {DetailPage} from './detail/DetailPage'
+import {TopSearchPage} from './top-search/TopSearchPage'
 
 
 export const App: React.FC = () => {
@@ -22,6 +22,6 @@ export const App: React.FC = () => {
             </BrowserRouter>
         </div>
     );
-}
+};
 
 export default App;

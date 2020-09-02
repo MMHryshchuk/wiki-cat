@@ -2,9 +2,9 @@ import React, {useCallback, useState} from 'react';
 import {useHistory} from "react-router-dom";
 import _ from "lodash";
 import Api from "../../../api";
-import {useCancellationToken, useDebounce, useCancellableEffect, useDeviceDetect} from '../../../hooks'
+import {useCancellableEffect, useCancellationToken, useDebounce, useDeviceDetect} from '../../../hooks'
 import {WikiLoader} from "../../../components/ui/WikiLoader";
-import {SearchIcon, Close} from "../../../images";
+import {Close, SearchIcon} from "../../../images";
 
 export interface SearchBreed {
     id: string,

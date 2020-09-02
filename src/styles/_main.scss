@@ -1,0 +1,488 @@
+@import "mixins";
+@import "variables";
+
+@include responsive(tab-port) {
+  $fontSizeLarge: 40px;
+  $fontSizeMedium: 18px;
+  $fontSizeDefault: 12px;
+}
+
+.main__container {
+  display: flex;
+  flex-direction: row;
+  background-color: #050709;
+  border-radius: 42px 42px 0 0;
+
+  .main__block {
+    flex: 1;
+    position: relative;
+    background-color: #050709;
+    border-radius: 42px 0 0 0;
+
+    .search-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: start;
+      margin: 50px;
+      @include responsive(tab-port) {
+        margin: 24px;
+
+      }
+
+
+      .content-logo {
+        display: flex;
+        align-items: center;
+
+        .logo__title {
+          font-family: 'Mystery Quest', cursive;
+          font-size: 64px;
+          line-height: 87px;
+          color: #FFFFFF;
+          @include responsive(tab-port) {
+            font-size: 24px;
+          }
+
+          @include responsive(phone) {
+            line-height: 25px;
+
+          }
+        }
+
+        .logo__icon {
+          margin-left: 22px;
+          height: 80px;
+          width: 80px;
+          @include responsive(tab-port) {
+            margin-left: 12px;
+            height: 30px;
+            width: 30px;
+          }
+        }
+      }
+
+      .content-text {
+        max-width: 320px;
+        font-size: $fontSizeMedium;
+        line-height: 29px;
+        color: #FFFFFF;
+        margin-top: 12px;
+        margin-bottom: 50px;
+
+        @include responsive(tab-port) {
+          font-size: 12px;
+          margin-bottom: 16px;
+          line-height: 12px;
+
+        }
+      }
+
+    }
+
+  }
+
+  .main__bg {
+    flex: 1;
+    border-radius: 0 42px 0 0;
+    background-image: url("../images/cat_bgg.png");
+    background-position: center;
+    background-repeat: no-repeat;
+
+    @include responsive(tab-port) {
+      background-size: cover;
+      background-position: center;
+    }
+
+
+  }
+}
+
+.most__container {
+  background-color: #E3E1DC;
+  border-radius: 0 0 42px 42px;
+  padding: 50px 108px;
+
+  @include responsive(tab-port) {
+    padding: 28px 18px;
+
+  }
+
+
+  .most__content {
+
+    .most__text {
+      font-size: $fontSizeDefault;
+      line-height: 22px;
+      color: $colorPrimary;
+    }
+
+    .most__block {
+      margin-top: 36px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      @include responsive(tab-port) {
+        flex-direction: column;
+
+      }
+
+      .block-text {
+        max-width: 536px;
+        font-weight: bold;
+        font-size: $fontSizeLarge;
+        line-height: 59px;
+        color: $colorPrimary;
+
+        @include responsive(tab-port) {
+          font-size: 30px;
+          line-height: 32px;
+        }
+      }
+
+      .block-more {
+        @include moreButton();
+        margin-top: 20px;
+        margin-right: 9px;
+      }
+    }
+  }
+
+}
+
+.info__container {
+  margin: 100px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  @include responsive(tab-port) {
+    margin: 60px 0 0 0;
+    grid-template-columns: 1fr;
+  }
+
+
+  .info__content {
+    display: flex;
+    align-items: start;
+    justify-content: space-around;
+    flex-direction: column;
+
+
+    .info-title {
+      font-weight: bold;
+      font-size: $fontSizeLarge;
+      line-height: 59px;
+      color: $colorPrimary;
+    }
+
+    .info-text {
+      margin: 42px 0 26px;
+      font-weight: 500;
+      font-size: $fontSizeDefault;
+      line-height: 22px;
+      color: $colorPrimary;
+
+      @include responsive(tab-port) {
+
+      }
+    }
+
+    .info-more {
+      @include moreButton();
+    }
+
+  }
+
+  .info__image-wrapper {
+    display: flex;
+    justify-content: space-between;
+
+    @include responsive(tab-port) {
+      justify-content: center;
+      margin: 60px 0 20px;
+
+    }
+
+    .image-block {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      margin-right: 27px;
+
+      .first {
+        @include imageStyle(254px, 146px);
+
+        @include responsive(tab-port) {
+          @include imageStyle(172px, 105px)
+        }
+      }
+
+      .second {
+        margin-top: 24px;
+        @include imageStyle(176px, 270px);
+        @include responsive(tab-port) {
+          @include imageStyle(122px, 184px)
+        }
+      }
+    }
+
+    .image-third {
+      @include imageStyle(218px, 366px);
+      @include responsive(tab-port) {
+        @include imageStyle(150px, 242px);
+
+      }
+    }
+  }
+
+}
+
+.most__list {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  position: relative;
+  @include responsive(tab-port) {
+    justify-content: space-around;
+
+  }
+
+  .list-item {
+    margin-top: 20px;
+
+    &:first-child:before {
+      content: '';
+      height: 170px;
+      width: 16px;
+      background-color: #DEC68B;
+      border-radius: 24px 0 0 24px;
+      position: absolute;
+      left: -16px;
+      top: 35px;
+
+      @include responsive(tab-port) {
+        visibility: hidden;
+
+      }
+    }
+
+    .item-image {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 24px;
+
+      @include responsive(phone) {
+        width: 130px;
+        height: 130px;
+
+      }
+    }
+
+    .item-title {
+      margin-top: 20px;
+      font-weight: 600;
+      font-size: $fontSizeDefault;
+      line-height: 22px;
+      color: $colorPrimary;
+      cursor: pointer;
+
+      &:hover {
+        color: #70360d;
+
+      }
+    }
+  }
+}
+
+.search-bar__block {
+  .search-input {
+    position: relative;
+    max-width: 390px;
+    height: 70px;
+    background: #FFFFFF;
+    border-radius: 59px;
+    padding: 0 54px 0 24px;
+    font-weight: 500;
+    font-size: $fontSizeDefault;
+    line-height: 22px;
+    color: $colorPrimary;
+
+    @include responsive(tab-port) {
+      padding: 0 24px 0 14px;
+      width: 220px;
+      height: 60px;
+    }
+
+    @include responsive(phone) {
+      padding: 0 24px 0 14px;
+      width: 90px;
+      height: 30px;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .search-icon {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    margin-left: -40px;
+
+    @include responsive(phone) {
+      width: 10px;
+      height: 10px;
+      margin-left: -20px;
+    }
+  }
+}
+
+.search-result__form {
+  position: absolute;
+  width: 305px;
+  height: 220px;
+  top: 348px;
+  background-color: #fff;
+  border-radius: 24px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  @include responsive(tab-port) {
+    width: 220px;
+    top: 233px;
+  }
+
+  .form-item {
+    cursor: pointer;
+    height: 56px;
+    margin: 8px 12px;
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      background: rgba(151, 151, 151, 0.1);
+      border-radius: 12px;
+    }
+
+    .item-text {
+      margin-left: 8px;
+      font-weight: 500;
+      font-size: $fontSizeDefault;
+      line-height: 22px;
+      color: $colorBlack;
+    }
+  }
+
+}
+
+.search-modal__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: $colorWhite;
+  z-index: 2;
+
+
+  .modal-btn {
+    position: absolute;
+    top: 8px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(151, 151, 151, 0.1);
+    border-radius: 8px;
+
+    img {
+      width: 12px;
+      height: 12px;
+
+    }
+
+  }
+
+  .modal-input {
+    margin-top: 80px;
+    display: flex;
+    align-items: center;
+
+    input {
+      position: relative;
+      max-width: 300px;
+      height: 45px;
+      background: $colorWhite;
+      border-radius: 59px;
+      padding: 0 54px 0 24px;
+      font-weight: 500;
+      font-size: $fontSizeDefault;
+      line-height: 22px;
+      color: $colorPrimary;
+      border: 1px solid $colorBlack;
+      box-sizing: border-box;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    img {
+      width: 20px;
+      height: 20px;
+      position: relative;
+      margin-left: -40px;
+    }
+  }
+
+  .modal-list {
+    min-width: 300px;
+    height: 320px;
+    background-color: #fff;
+    border-radius: 24px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    .form-item {
+      cursor: pointer;
+      height: 56px;
+      margin: 8px 12px;
+      display: flex;
+      align-items: center;
+
+      &:hover {
+        background: rgba(151, 151, 151, 0.1);
+        border-radius: 12px;
+      }
+
+      .item-text {
+        margin-left: 8px;
+        font-weight: 500;
+        font-size: $fontSizeDefault;
+        line-height: 22px;
+        color: #000000;
+      }
+    }
+
+  }
+}
+
+.divider {
+  margin: 16px 0 8px;
+  width: 68px;
+  height: 3px;
+  background: #4D270C;
+  border-radius: 77px;
+}
+
+

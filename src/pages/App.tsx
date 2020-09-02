@@ -6,22 +6,24 @@ import {MainPage} from './main/MainPage'
 import {DetailPage} from './detail/DetailPage'
 import {TopSearchPage} from './top-search/TopSearchPage'
 import '../styles/_app.scss';
+import ScrollToTop from "../components/ScrollToTop";
 
 
 export const App: React.FC = () => {
-
 
 
     return (
         <div className="app_container">
             <BrowserRouter>
                 <WikiHeader/>
-                <Switch>
-                    <Route exact path="/" component={MainPage}/>
-                    <Route exact path="/breeds/:id/info" component={DetailPage}/>
-                    <Route exact path="/breeds/top" component={TopSearchPage}/>
-                </Switch>
-                <WikiFooter/>
+                <ScrollToTop>
+                    <Switch>
+                        <Route exact path="/" component={MainPage}/>
+                        <Route exact path="/breeds/:id/info" component={DetailPage}/>
+                        <Route exact path="/breeds/top" component={TopSearchPage}/>
+                    </Switch>
+                    <WikiFooter/>
+                </ScrollToTop>
             </BrowserRouter>
         </div>
     );

@@ -18,6 +18,7 @@ export interface IBreed {
     social_needs: 0 | 1 | 2 | 3 | 4 | 5,
     stranger_friendly: 0 | 1 | 2 | 3 | 4 | 5,
 }
+
 type BreedInformationProps = {
     breed?: IBreed,
 }
@@ -26,7 +27,9 @@ export const BreedInformation: React.FC<BreedInformationProps> = ({breed}) => {
 
     return (
         <div className="detail-container">
-            <img className="detail__image" src={breed?.image} alt="breed"/>
+            <div className="detail__img-wrapper">
+                <img className="detail__image" src={breed?.image} alt="breed"/>
+            </div>
             <div className="detail__info-wrapper">
                 <div className="detail__info-title">{breed?.name}</div>
                 <div className="detail__info-text">{breed?.description}</div>

@@ -32,11 +32,18 @@ export const Search: React.FC = () => {
     useCancellableEffect(async () => {
             if (debouncedSearchQuery) {
                 if (cancellationToken.isCancelled) return;
+
                 setIsSearching(true);
-                searchBreed(debouncedSearchQuery).then(results => {
-                    setIsSearching(false);
-                    setSearchBreeds(results.data);
-                });
+
+                try {
+                    searchBreed(debouncedSearchQuery).then(results => {
+                        setIsSearching(false);
+                        setSearchBreeds(results?.data ?? []);
+                    });
+                } catch (e) {
+                    console.log(e);
+                }
+
             } else {
                 if (cancellationToken.isCancelled) return;
                 setSearchBreeds([]);

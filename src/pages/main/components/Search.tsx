@@ -36,12 +36,13 @@ export const Search: React.FC = () => {
                 setIsSearching(true);
 
                 try {
-                    searchBreed(debouncedSearchQuery).then(results => {
-                        setIsSearching(false);
-                        setSearchBreeds(results?.data ?? []);
-                    });
+                    const result = await searchBreed(debouncedSearchQuery);
+                    setSearchBreeds(isEmpty(result.data) ?  [] : result.data);
                 } catch (e) {
                     console.log(e);
+                } finally {
+                    setIsSearching(false);
+
                 }
 
             } else {
@@ -51,12 +52,16 @@ export const Search: React.FC = () => {
         }, [debouncedSearchQuery], cancellationToken
     );
 
-    const searchBreed = async (query: string) => {
-        try {
-            return Api.breeds.searchBreeds(query);
-        } catch (e) {
-            console.log(e);
+    const isEmpty = (obj: Object): boolean => {
+        for(let key in obj) {
+            if(obj.hasOwnProperty(key))
+                return false;
         }
+        return true;
+    };
+
+    const searchBreed = async (query: string) => {
+        return Api.breeds.searchBreeds(query);
     };
 
     const onItemClick = (breed: SearchBreed) => {

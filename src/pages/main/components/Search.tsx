@@ -37,7 +37,7 @@ export const Search: React.FC = () => {
 
                 try {
                     const result = await searchBreed(debouncedSearchQuery);
-                    setSearchBreeds(isEmpty(result.data) ?  [] : result.data);
+                    setSearchBreeds(isEmpty(result?.data) ? [] : result.data);
                 } catch (e) {
                     console.log(e);
                 } finally {
@@ -52,9 +52,11 @@ export const Search: React.FC = () => {
         }, [debouncedSearchQuery], cancellationToken
     );
 
-    const isEmpty = (obj: Object): boolean => {
-        for(let key in obj) {
-            if(obj.hasOwnProperty(key))
+    const isEmpty = (obj: Object | undefined | null): boolean => {
+        if (!obj) return false;
+
+        for (let key in obj) {
+            if (obj.hasOwnProperty(key))
                 return false;
         }
         return true;
